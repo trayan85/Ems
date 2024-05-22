@@ -6,5 +6,5 @@ import java.math.BigDecimal;
 
 public interface EmployeeRepository {
 
-    Employee addEmployee(Long id, String name, String department, BigDecimal salary);
+    Employee addEmployee(String name, String department, BigDecimal salary);
 }

@@ -5,10 +5,13 @@ import org.trayan.repository.data.Employee;
 
 import java.math.BigDecimal;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.atomic.AtomicLong;
 
 public class EmployeeRepositoryImpl implements EmployeeRepository {
 
-    private ConcurrentHashMap<Long, Employee> mapEmployees = new ConcurrentHashMap<>();
+    private static final AtomicLong incrementingID = new AtomicLong(0);
+
+    private static final ConcurrentHashMap<Long, Employee> mapEmployees = new ConcurrentHashMap<>();
 
     /* Note:
     2nd variant for Concurrent protection
@@ -27,8 +30,10 @@ public class EmployeeRepositoryImpl implements EmployeeRepository {
      */
 
     @Override
-    public Employee addEmployee(final Long id, final String name, final String department, final BigDecimal salary) {
+    public Employee addEmployee(final String name, final String department, final BigDecimal salary) {
+        final Long id = incrementingID.incrementAndGet();
         final Employee employee = new Employee(id, name, department, salary);
+
         return mapEmployees.putIfAbsent(id, employee);
     }
 }

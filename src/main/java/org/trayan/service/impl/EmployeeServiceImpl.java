@@ -12,7 +12,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     private EmployeeRepository employeeRepository = new EmployeeRepositoryImpl();
 
     @Override
-    public Employee addEmployee(final Long id, final String name, final String department, final BigDecimal salary) {
-        return employeeRepository.addEmployee(id, name, department, salary);
+    public Employee addEmployee(final String name, final String department, final BigDecimal salary) {
+        return employeeRepository.addEmployee(name, department, salary);
     }
 }
